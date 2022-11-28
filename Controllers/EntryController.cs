@@ -38,10 +38,10 @@ namespace to_do_app_dotnet.Controllers
             return Ok(newEntry);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteEntry(EntryDTO entryDTO)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEntry(Guid id)
         {
-            var entry = await _context.Entries.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name && x.Id == entryDTO.Id);
+            var entry = await _context.Entries.FirstOrDefaultAsync(x => x.UserName == User.Identity.Name && x.Id == id);
             if (entry == null)
             {
                 return BadRequest("No such entry found.");
