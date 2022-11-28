@@ -31,10 +31,11 @@ namespace to_do_app_dotnet.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEntry(EntryDTO entryDTO)
         {
-            await _context.Entries.AddAsync(new Entry { Title = entryDTO.Title, UserName = User.Identity.Name });
+            var newEntry = new Entry { Title = entryDTO.Title, UserName = User.Identity.Name };
+            await _context.Entries.AddAsync(newEntry);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(newEntry);
         }
 
         [HttpDelete]
