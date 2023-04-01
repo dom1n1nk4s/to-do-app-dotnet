@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -15,9 +16,9 @@ namespace to_do_app_dotnet.Controllers
     [Authorize]
     public class EntryController : ControllerBase
     {
-        private readonly IdentityContext _context;
-
-        public EntryController(IdentityContext context)
+        private readonly IIdentityContext _context;
+        [ExcludeFromCodeCoverageAttribute]
+        public EntryController(IIdentityContext context)
         {
             _context = context;
         }

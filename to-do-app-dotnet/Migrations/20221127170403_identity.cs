@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
-
 namespace todoappdotnet.Migrations
 {
     /// <inheritdoc />
+    [ExcludeFromCodeCoverageAttribute]
     public partial class identity : Migration
     {
         /// <inheritdoc />
