@@ -49,7 +49,11 @@ namespace to_do_app_dotnet.Controllers
             };
 
             var result = await _userManager.CreateAsync(userModel, userDTO.Password);
-            return Ok(result);
+            
+            if(result.Succeeded)
+                return Ok(result.ToString());
+            else
+                return BadRequest(result.ToString());
         }
 
         [HttpPost("login")]
