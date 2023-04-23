@@ -51,7 +51,7 @@ namespace to_do_app_dotnet.Controllers
             var result = await _userManager.CreateAsync(userModel, userDTO.Password);
             
             if(result.Succeeded)
-                return Ok(result.ToString());
+                return Ok(result);
             else
                 return BadRequest(result.ToString());
         }
