@@ -38,6 +38,11 @@ namespace to_do_app_dotnet.Controllers
             {
                 return BadRequest("Invalid data passed.");
             }
+            var appUser = await _userManager.FindByNameAsync(userDTO.Name);
+            if(appUser != null)
+            {
+                return BadRequest("Duplicate username.");
+            }
             var userModel = new User
             {
                 UserName = userDTO.Name,
@@ -57,7 +62,7 @@ namespace to_do_app_dotnet.Controllers
             var appUser = await _userManager.FindByNameAsync(userDTO.Name);
             if (appUser == null)
             {
-                return BadRequest("Incorrect login data passed.");
+                return BadRequest("No such user found");
             }
             var result = await _signInManager.PasswordSignInAsync(appUser, userDTO.Password, false, false);
             if (!result.Succeeded)
