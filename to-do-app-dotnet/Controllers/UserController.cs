@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using to_do_app_dotnet.DTOs;
 using to_do_app_dotnet.DTOs.User;
 using to_do_app_dotnet.Models;
 
@@ -29,6 +30,19 @@ namespace to_do_app_dotnet.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+        }
+
+        [Authorize]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword (PasswordDTO passwordDTO){
+            
+            var result = await _userManager.ChangePasswordAsync(await _userManager.FindByNameAsync(User.Identity.Name), passwordDTO.OldPassword, passwordDTO.NewPassword );
+            if(result.Succeeded){
+                return Ok(result);
+            }
+            else{
+                return BadRequest(result.ToString());
+            }
         }
 
         [HttpPost("register")]
